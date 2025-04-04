@@ -12,6 +12,11 @@ let resultDisplayed = false; // Tracks whether a result is currently displayed
 
 // Helper function to update the current operand
 const updateCurrentOperand = (value, resetResult = false) => {
+    // Check if there's an error message and reset the display
+    if (currentOperandTextElement.textContent.includes("Error")) {
+        resetCalculator(); // Clear the display and reset state
+    }
+
     if (resetResult && resultDisplayed) {
         currentOperandTextElement.textContent = ""; // Clear display for a new calculation
         resultDisplayed = false;
@@ -43,6 +48,11 @@ numberButtons.forEach(button => {
 // Handle operator button clicks
 operationButtons.forEach(button => {
     button.addEventListener("click", () => {
+        // Clear the error message if present
+        if (currentOperandTextElement.textContent.includes("Error")) {
+            resetCalculator(); // Clear the error message
+        }
+
         // Prevent consecutive operators
         if(/[/+\-*/%]$/.test(currentOperandTextElement.textContent)) return; 
         // Append the operator
@@ -63,6 +73,12 @@ plusOrMinusButton.addEventListener("click", () => {
 
 // Allow users to undo their last input if they click the wrong number
 backspaceButton.addEventListener("click", () => {
+    // Clear the error message if present
+    if (currentOperandTextElement.textContent.includes("Error")) {
+        resetCalculator(); // Reset on error before attempting calculation
+        return;
+    }
+
     currentOperandTextElement.textContent = currentOperandTextElement.textContent.slice(0, -1) || '0'; // Ensure the display never becomes empty
     // Check if the decimal should be re-enabled
     decimalButton.disabled = !currentOperandTextElement.textContent.includes(".");
@@ -70,6 +86,11 @@ backspaceButton.addEventListener("click", () => {
 
 // Handle equals button
 equalsButton.addEventListener("click", () => {
+    if (currentOperandTextElement.textContent.includes("Error")) {
+        resetCalculator(); // Reset on error before attempting calculation
+        return;
+    }
+
     // Show original expression in the previous operand display
     previousOperandTextElement.textContent = currentOperandTextElement.textContent;
     
@@ -89,7 +110,7 @@ equalsButton.addEventListener("click", () => {
     const operators = expression.match(operatorPattern) || [];
 
     if(numbers.length < 2 || !operators) {
-        currentOperandTextElement.textContent = "Error: Incomplete input" // Handle incomplete input
+        currentOperandTextElement.textContent = "Error:Incomplete input" // Handle incomplete input
         return;
     }
 
@@ -114,7 +135,7 @@ equalsButton.addEventListener("click", () => {
 
             case "/":
                 if(nextNumber === 0) {
-                    currentOperandTextElement.textContent = "Error: Cannot divide by 0" // Prevent division by zero
+                    currentOperandTextElement.textContent = "Error:Cannot divide by 0" // Prevent division by zero
                     return;
                 }
                 result = parseFloat((result / nextNumber).toFixed(10)); // Ensure precision for division
@@ -125,7 +146,7 @@ equalsButton.addEventListener("click", () => {
                 break;
 
             default:
-                currentOperandTextElement.textContent = "Error: Invalid operation";
+                currentOperandTextElement.textContent = "Error:Invalid operation";
                 return;
         }
     }
@@ -158,7 +179,7 @@ const multiply = (a, b) => {
 // Division Function
 const divide = (a, b) => {
     if(b === 0) {
-        return "Error: Division by zero is not allowed.";
+        return "Error:Division by zero is not allowed.";
     }
     return a / b;
 };
