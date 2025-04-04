@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(10, 80, 102);
+    box-sizing: border-box;
+}
+
+h1 {
+    color: white;
+    margin: 2rem;
+}
+
+.container {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #c2f9d9;
+    max-height: 90vh;
+    margin: 2rem auto;
+    border: solid 10px rgb(192, 98, 118);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(235, 54, 54, 0.2);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container:hover {
+    background-color: rgb(117, 116, 114);
+    transform: background-color 0.4s ease;
+}
+
+.display {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(245, 242, 141);
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 1rem;
+    padding: 5px;
+    border: solid 2px rgb(237, 136, 96);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: space-between;
+}
+
+.display .previousOperand {
+    color:rgb(53, 51, 51);
+    font-size: 1.1em;
+}
+
+.display .currentOperand {
+    color: black;
+    font-size: 1.5rem;
+}
+
+button {
+    flex: 1 0 20%; /* Each button takes up 20% of the container width */
+    height: 70px;
+    margin: 2px;
+    background: linear-gradient(to bottom, #9cf2ac, #abb737); /* Light gradient for a polished look */
+    border: 2px solid #cb7a17; /* Border to define the button edge */
+    border-radius: 10%;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
+    cursor: pointer;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #ebcd49, #e68585); /* Darker gradient on hover */
+    box-shadow: 1px #eded84; /* Enhance shadow for a raised effect */
+    transform: scale(1.1); /* Slightly increase button size */
+}
